@@ -1,4 +1,4 @@
-/*
+/* https://github.com/theta148/Lab05-MihirPatel
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
@@ -10,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -41,12 +43,22 @@ public class JavaFXDemo extends Application{
         ComboBox<Integer> quantity = new ComboBox<>();
         quantity.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
         
+        RadioButton small = new RadioButton("Small");
+        RadioButton medium = new RadioButton("Medium");
+        RadioButton large = new RadioButton("Large");
+        
+        ToggleGroup sizeGroup = new ToggleGroup();
+        small.setToggleGroup(sizeGroup);
+        medium.setToggleGroup(sizeGroup);
+        large.setToggleGroup(sizeGroup);
+        
         Button orderBtn = new Button("Place Order");
         Button clearBtn = new Button("Clear Selections");
         
         HBox row1 = new HBox(10, bagStyle, bagListView, quantityLabel, quantity);
-        HBox row2 = new HBox(10, orderBtn, clearBtn);
-        VBox root = new VBox(10, row1, row2);
+        HBox row2 = new HBox(10, small, medium, large);
+        HBox row3 = new HBox(10, orderBtn, clearBtn);
+        VBox root = new VBox(10, row1, row2, row3);
         
         Scene scene = new Scene(root, 600, 400);
         primaryStage.setTitle("Bag Order Form");
