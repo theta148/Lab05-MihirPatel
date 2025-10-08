@@ -4,6 +4,7 @@
  */
 package javafxdemo;
 
+import java.util.Scanner;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -32,37 +33,29 @@ public class JavaFXDemo extends Application{
     
     @Override
     public void start(Stage primaryStage) {
-        Label bagStyle = new Label("Select Bag Style");
-        Label quantityLabel = new Label("Select Quantity");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Pick 1 or 2 for a task");
         
-        ListView<String> bagListView = new ListView();
-        bagListView.getItems().addAll(
-            "Full Decorative", "Beaded", "Pirate Design",
-            "Fringed", "Leather", "Plain");
+        int num = scanner.nextInt();
         
-        ComboBox<Integer> quantity = new ComboBox<>();
-        quantity.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-        
-        RadioButton small = new RadioButton("Small");
-        RadioButton medium = new RadioButton("Medium");
-        RadioButton large = new RadioButton("Large");
-        
-        ToggleGroup sizeGroup = new ToggleGroup();
-        small.setToggleGroup(sizeGroup);
-        medium.setToggleGroup(sizeGroup);
-        large.setToggleGroup(sizeGroup);
-        
-        Button orderBtn = new Button("Place Order");
-        Button clearBtn = new Button("Clear Selections");
-        
-        HBox row1 = new HBox(10, bagStyle, bagListView, quantityLabel, quantity);
-        HBox row2 = new HBox(10, small, medium, large);
-        HBox row3 = new HBox(10, orderBtn, clearBtn);
-        VBox root = new VBox(10, row1, row2, row3);
-        
-        Scene scene = new Scene(root, 600, 400);
-        primaryStage.setTitle("Bag Order Form");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        if (num == 1) {
+            Task1 task1 = new Task1();
+            
+            VBox root = new VBox(task1.getView());
+       
+            Scene scene = new Scene(root, 800, 400);
+            primaryStage.setTitle("Bag Order Form");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } else if (num == 2) {
+            Task2 task2 = new Task2();
+            
+            VBox root = new VBox(task2.getView());
+       
+            Scene scene = new Scene(root, 800, 400);
+            primaryStage.setTitle("Order Calculator");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        }
     }
 }
