@@ -43,7 +43,7 @@ public class JavaFXDemo extends Application{
             
             VBox root = new VBox(task1.getView());
        
-            Scene scene = new Scene(root, 800, 400);
+            Scene scene = new Scene(root, 600, 500);
             primaryStage.setTitle("Bag Order Form");
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -56,6 +56,8 @@ public class JavaFXDemo extends Application{
             primaryStage.setTitle("Order Calculator");
             primaryStage.setScene(scene);
             primaryStage.show();
-        }
+        } else {
+            System.out.println("Invalid input");
+        } 
     }
 }

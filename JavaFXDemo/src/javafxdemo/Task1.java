@@ -4,12 +4,12 @@
  */
 package javafxdemo;
 
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -23,8 +23,11 @@ public class Task1 {
     private HBox row1;
     private HBox row2;
     private HBox row3;
+    private HBox row4;
     private Label bagStyle;
     private Label quantityLabel;
+    private Label messageLabel;
+    private String message;
     
     private ListView<String> bagListView;
     private Button orderBtn;
@@ -35,9 +38,7 @@ public class Task1 {
     private RadioButton medium;
     private RadioButton large; 
     private ToggleGroup sizeGroup;
-    
-    private String message;
-    
+
     public Task1(){
         bagStyle = new Label("Select Bag Style: ");
         quantityLabel = new Label("Select Quantity: ");
@@ -68,8 +69,14 @@ public class Task1 {
         row1 = new HBox(10, bagStyle, bagListView, quantityLabel, quantity);
         row2 = new HBox(10, small, medium, large);
         row3 = new HBox(10, orderBtn, clearBtn);
+        
+        row1.setStyle("-fx-padding: 30");
+        row2.setStyle("-fx-padding: 30");
+        row3.setStyle("-fx-padding: 30");
         bagStyle.setTranslateY(30);
         quantityLabel.setTranslateY(30);
+        quantity.setTranslateY(30);
+        
         root = new VBox(10, row1, row2, row3);
     }
 
@@ -78,17 +85,23 @@ public class Task1 {
     }
     
     private void Order() {
+        Toggle selected = sizeGroup.getSelectedToggle();
+        
         if (quantity.getValue() == 1) {
+            String choice = ((RadioButton) selected).getText();
             message = String.format("You ordered 1 %s %s Bag.",
-                sizeGroup.getSelectedToggle().getUserData(), bagListView.getSelectionModel().getSelectedItem());
+                choice, bagListView.getSelectionModel().getSelectedItem());
         } else {
+            String choice = ((RadioButton) selected).getText();
             message = String.format("You ordered %d %s %s Bags.", 
-                    quantity.getValue(), 
-                    sizeGroup.getSelectedToggle().getUserData(), 
-                    bagListView.getSelectionModel().getSelectedItem());
+                quantity.getValue(), 
+                choice, bagListView.getSelectionModel().getSelectedItem());
         }
         
-        System.out.println(message);
+        messageLabel = new Label(message);
+        row4 = new HBox(messageLabel);
+        row4.setStyle("-fx-padding: 30");
+        root.getChildren().add(row4);
     }
 
     private void Clear() {
